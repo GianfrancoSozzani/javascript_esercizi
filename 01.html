@@ -16,13 +16,16 @@
             .then(listaUtenti => {
                 const a = document.getElementById("utenti-presenti");
                 let codiceHTML = "";
-
-                listaUtenti.forEach(
-                    u => {
-                        codiceHTML += `<button type = 'button' class='btn btn-success' onclick='mostra_post('userId')'>${u.userId}</button>`;
-                    }
+               
+                console.log(listaUtenti[35].userId);
+                listaUtenti.forEach((u, i) => {
+                    if (listaUtenti[i].userId !== listaUtenti[i + 1].userId) {
+                        codiceHTML += `<button type='button' class='btn btn-success' onclick='mostra_post('userId')' > ${u.userId}</button >`;
+                    };
+                }
                 );
-
+                //!= è l'operatore di disuguaglianza lenta (lo chiamiamo anche "disuguaglianza con coercizione di tipo"), che confronta i valori e li converte implicitamente in un tipo comune prima di effettuare il confronto.
+                //!== è l'operatore di disuguaglianza stretta, che non fa alcuna coercizione di tipo. Confronta sia il valore che il tipo degli operandi, quindi è più preciso.
                 a.innerHTML = codiceHTML;
             });
     </script>
