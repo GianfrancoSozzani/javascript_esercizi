@@ -19,11 +19,9 @@
         const a = document.getElementById("utenti-presenti");
         const b = document.getElementById("commenti");
 
-        let listaUtentiGlobal = []; // Definisci listaUtentiGlobal nello scope globale
-
-        function mostra_post(utente, listaUtenti) { // Passa listaUtenti come parametro
+        function mostra_post(utente, listapost) { // Passa listaUtenti come parametro
             let x = "";
-            listaUtenti.forEach(u => {
+            listapost.forEach(u => {
                 if (u.userId == utente) {
                     x += `<div class="col">
                                 <div class="card">
@@ -41,7 +39,8 @@
         fetch("https://jsonplaceholder.typicode.com/posts")
             .then(response => response.json())
             .then(listaUtenti => {
-                lista = listaUtenti; // Assegna listaUtenti a listaUtentiGlobal
+
+                lista = listaUtenti; // Assegna listaUtenti a lista
               
                 let codiceHTML = "";
 
@@ -55,7 +54,6 @@
                 function svuota() {
                     document.getElementById("commenti").innerHTML = "";
                 }
-
 
                 //listaUtenti.forEach((u, i) => {
                 //    if (listaUtenti[i].userId !== listaUtenti[i + 1]?.userId) {
