@@ -16,16 +16,25 @@
             .then(listaUtenti => {
                 const a = document.getElementById("utenti-presenti");
                 let codiceHTML = "";
-               
+
                 console.log(listaUtenti[35].userId);
                 listaUtenti.forEach((u, i) => {
-                    if (listaUtenti[i].userId !== listaUtenti[i + 1].userId) {
-                        codiceHTML += `<button type='button' class='btn btn-success' onclick='mostra_post('userId')' > ${u.userId}</button >`;
+                    if (listaUtenti[i].userId !== listaUtenti[i + 1]?.userId) {
+                        codiceHTML += `<button type='button' class='btn btn-success' onclick="mostra_post('${u.userId}')" > ${u.userId}</button >`;
                     };
                 }
                 );
                 //!= è l'operatore di disuguaglianza lenta (lo chiamiamo anche "disuguaglianza con coercizione di tipo"), che confronta i valori e li converte implicitamente in un tipo comune prima di effettuare il confronto.
                 //!== è l'operatore di disuguaglianza stretta, che non fa alcuna coercizione di tipo. Confronta sia il valore che il tipo degli operandi, quindi è più preciso.
+                //JavaScript cercherà di accedere alla proprietà userId dell'oggetto listaUtenti[i + 1], ma solo se listaUtenti[i + 1] esiste (cioè non è null o undefined). Se listaUtenti[i + 1] è null o undefined, l'operatore ?. fa sì che l'espressione ritorni undefined anziché generare un errore.
+
+                // Esempio:
+                //Se listaUtenti[i + 1] esiste e ha una proprietà userId, allora l'espressione restituirà il valore di userId.
+
+                //Se listaUtenti[i + 1] è null o undefined, allora l'espressione restituirà undefined senza generare un errore.
+
+                //Questo è utile per evitare errori che si verificherebbero tentando di accedere a una proprietà su un valore null o undefined.
+
                 a.innerHTML = codiceHTML;
             });
     </script>
