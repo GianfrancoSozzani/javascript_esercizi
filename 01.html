@@ -19,18 +19,18 @@
         const a = document.getElementById("utenti-presenti");
         const b = document.getElementById("commenti");
 
-        function mostra_post(utente, listapost) { // Passa listaUtenti come parametro
+        function mostra_post(utente, listapost) { // Passa listapost come parametro
             let x = "";
             listapost.forEach(u => {
                 if (u.userId == utente) {
                     x += `<div class="col">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <h5 class="card-title">${u.title}</h5>
-                                        <p class="card-text">${u.body}</p>
-                                    </div>
-                                </div>
-                            </div>`;
+                               <div class="card">
+                                   <div class="card-body">
+                                       <h5 class="card-title">${u.title}</h5>
+                                       <p class="card-text">${u.body}</p>
+                                   </div>
+                               </div>
+                          </div>`;
                 }
             });
            b.innerHTML = x;
