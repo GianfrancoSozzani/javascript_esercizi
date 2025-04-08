@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Lista Utenti con jQuery</title>
+  <style>
+    body {
+      font-family: Arial;
+      padding: 20px;
+    }
+
+    li {
+      margin: 10px 0;
+    }
+  </style>
+
+  <!-- Inclusione di jQuery da CDN -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+
+<body>
+
+  <h2>Utenti caricati da API (con jQuery)</h2>
+  <ul id="listaUtenti">Caricamento...</ul>
+
+  <script>
+    // Quando il documento è pronto
+    $(document).ready(function () {
+      // Richiesta AJAX GET all'API
+      $.ajax({
+        url: "https://jsonplaceholder.typicode.com/users", // URL dell'API
+        method: "GET", // Metodo HTTP
+        dataType: "json", // Tipo di dato atteso
+        success: function (utenti) {
+          // Se la richiesta ha successo
+
+          const lista = $("#listaUtenti"); // Selezione della lista
+          lista.empty(); // Svuota il contenuto iniziale
+
+          // Per ogni utente ricevuto
+          utenti.forEach(function (utente) {
+            // Aggiunge un elemento <li> con nome ed email
+            lista.append(`<li><strong>${utente.name}</strong> - ${utente.email}</li>`);
+          });
+        },
+        error: function (xhr, status, error) {
+          // In caso di errore mostra un messaggio all'utente
+          $("#listaUtenti").text("Errore nel caricamento.");
+            console.error("Errore:", error);
+            //console.log("xhr:", xhr);
+            //console.log("status:", status);
+        }
+      });
+    });
+  </script>
+
+</body>
+
+</html>

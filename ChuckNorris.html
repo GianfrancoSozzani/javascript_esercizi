@@ -1,0 +1,73 @@
+﻿<!doctype html>
+<html lang="it">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrap demo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous">
+</head>
+<body class="d-flex flex-column align-items-center">
+    <header>
+        <nav class="navbar navbar-expand-lg bg-body-tertiary">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">Navbar</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                    <div id="lista-categorie" class="navbar-nav">
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <button type="button" class="btn btn-warning mt-2 mb-5" onclick="genera()">Genera Chuck</button>
+    <div class="card d-none" id="card" style="width: 18rem;">
+        <img class="card-img-top" alt="..." id="immagine">
+        <div class="card-body">
+            <p class="card-text" id="testo-card"></p>
+        </div>
+    </div>
+    <script>
+        const text_card = document.getElementById("testo-card");
+        const image = document.getElementById("immagine");
+        const image_url = "https://a0.anyrgb.com/pngimg/544/1292/karate-kommandos-walker-texas-ranger-chuck-norris-facts-expendables-2-chuck-norris-joke-karate-caricature-profession-celebrities.png";
+        const card = document.getElementById("card");
+
+        function genera_navbar() {
+            fetch('https://api.chucknorris.io/jokes/categories')
+                .then(response => response.json())
+                .then(risultato => {
+                    risultato.forEach(r => {
+                        const nav_link = document.createElement("li");
+                        nav_link.classList.add("nav-item");
+                        const a = document.createElement("a");
+                        a.classList.add("nav-link");
+                        a.textContent = r;
+
+                        nav_link.appendChild(a);
+                        document.getElementById("lista-categorie").appendChild(nav_link);
+                    })
+                })
+        }
+
+        genera_navbar();
+
+        function genera() {
+
+            fetch('https://api.chucknorris.io/jokes/random')
+                .then(response => response.json())
+                .then(risultato => {
+                    text_card.textContent = risultato.value;
+                    image.src = image_url;
+                    if (card.classList.contains("d-none")) {
+                        card.classList.remove("d-none");
+                        card.classList.add("d-flex");
+                    }
+                })
+        }
+        genera();
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js" integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq" crossorigin="anonymous"></script>
+</body>
+</html>

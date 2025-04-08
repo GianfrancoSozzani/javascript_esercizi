@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Lista Utenti</title>
+    <style>
+        body {
+            font-family: Arial;
+            padding: 20px;
+        }
+
+        li {
+            margin: 10px 0;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h2>Utenti caricati da API</h2>
+    <ul id="listaUtenti">Caricamento...</ul>
+
+    <script>
+        // Esegue una richiesta HTTP GET all'API JSONPlaceholder per ottenere un elenco di utenti
+        fetch("https://jsonplaceholder.typicode.com/users")
+            .then(response => {
+                if (!response.ok) {
+                    // Se il server ha risposto ma con errore (es. 404, 500)
+                    throw new Error(`Errore HTTP ${response.status} - ${response.statusText}`);
+                }
+                return response.json();
+            }) // Converte la risposta in formato JSON
+            .then(utenti => {
+                // Se la richiesta ha successo, si entra in questa funzione
+
+                // Otteniamo il riferimento all'elemento <ul> con id "listaUtenti"
+                const lista = document.getElementById("listaUtenti");
+
+                // Svuotiamo il contenuto iniziale ("Caricamento...")
+                lista.innerHTML = "";
+
+                // Cicliamo su ogni utente ricevuto dall'API
+                utenti.forEach(utente => {
+                    // Creiamo un nuovo elemento <li>
+                    const li = document.createElement("li");
+
+                    // Inseriamo nome ed email dell'utente con HTML
+                    li.innerHTML = `<strong>${utente.name}</strong> - ${utente.email}`;
+
+                    // Aggiungiamo il <li> alla lista <ul>
+                    lista.appendChild(li);
+                });
+            })
+            .catch(error => {
+                // Se c'è un errore nella richiesta (es. rete non disponibile)
+                // mostriamo un messaggio di errore all'utente
+                document.getElementById("listaUtenti").innerText = "Errore nel caricamento.";
+
+                // Stampiamo l'errore nella console del browser per debug
+                console.error("Errore:", error);
+            });
+    </script>
+</body>
+
+</html>
