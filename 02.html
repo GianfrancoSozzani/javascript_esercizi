@@ -31,12 +31,22 @@
         }
 
         function rimuovi() {
-            a.removeChild(a.lastElementChild)
+            if (a.hasChildNodes()) {
+                a.removeChild(a.lastElementChild)
+            }
+            else {
+                alert("Nessun elemento da eliminare.");
+            }
         }
 
         function svuota2() {
-            while (a.hasChildNodes()) {
-                a.removeChild(a.firstChild);
+            if (!a.hasChildNodes()) {
+                alert("Nessun elemento da eliminare.");
+            }
+            else {
+                while (a.hasChildNodes()) {
+                    a.removeChild(a.firstChild);
+                }
             }
         }
 
