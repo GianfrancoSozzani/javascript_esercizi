@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <title>firstChild vs firstElementChild</title>
+    <style>
+        #contenitore {
+            border: 2px solid blue;
+            padding: 10px;
+        }
+
+        p {
+            color: green;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Test: firstChild vs firstElementChild</h1>
+
+    <div id="contenitore">
+        <!-- Nodo commento -->
+
+        <!-- Nodo di testo (a capo, spazi, ecc.) -->
+        <p>Io sono il primo paragrafo</p>
+        <p>Io sono il secondo paragrafo</p>
+    </div>
+
+    <button onclick="rimuoviFirstChild()">Rimuovi firstChild</button>
+    <button onclick="rimuoviFirstElementChild()">Rimuovi firstElementChild</button>
+
+    <script>
+        const contenitore = document.getElementById("contenitore");
+
+        function rimuoviFirstChild() {
+            const daRimuovere = contenitore.firstChild;
+            console.log("Rimuovo firstChild:", daRimuovere);
+            contenitore.removeChild(daRimuovere);
+        }
+
+        function rimuoviFirstElementChild() {
+            const daRimuovere = contenitore.firstElementChild;
+            console.log("Rimuovo firstElementChild:", daRimuovere);
+            contenitore.removeChild(daRimuovere);
+        }
+
+        //const haSoloElementiFigli = Array.from(element.childNodes)        //    .some(node => node.nodeType === Node.ELEMENT_NODE);
+    </script>
+
+</body>
+
+</html>
